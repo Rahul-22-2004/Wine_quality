@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENOLOGIX - Settings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a2e;
+            --bg-card: #16213e;
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent-primary: #ec4899;
+            --accent-secondary: #8b5cf6;
+            --border-color: rgba(255,255,255,0.1);
+        }
+
+        body.light-theme {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #e2e8f0;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            font-size: 1.75rem;
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        .user-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .user-role {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .logout-btn {
+            background: var(--accent-primary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(236, 72, 153, 0.4);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .page-header {
+            margin-bottom: 2rem;
+        }
+
+        .page-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+        }
+
+        /* Settings Grid */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+        }
+
+        .settings-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 700;
+        }
+
+        .setting-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .setting-item:hover {
+            border-color: var(--accent-secondary);
+        }
+
+        .setting-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .setting-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .setting-text h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .setting-text p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 56px;
+            height: 32px;
+            background: var(--border-color);
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active {
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(24px);
+        }
+
+        /* Model Cards */
+        .model-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .model-card {
+            background: rgba(255,255,255,0.03);
+            border: 2px solid var(--border-color);
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .model-card:hover {
+            border-color: var(--accent-secondary);
+        }
+
+        .model-card.selected {
+            border-color: var(--accent-secondary);
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+        }
+
+        .model-radio {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .model-card.selected .model-radio {
+            border-color: var(--accent-secondary);
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+        }
+
+        .model-radio::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .model-card.selected .model-radio::after {
+            opacity: 1;
+        }
+
+        .model-info h3 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .model-info p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .model-stats {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .stat-badge {
+            padding: 0.25rem 0.75rem;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 0.375rem;
+            color: #10b981;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .user-section {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .logout-btn {
+                width: 100%;
+            }
+
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <div class="logo-section">
+            <div class="logo-icon">🍷</div>
+            <div class="logo-text">
+                <h1>ENOLOGIX</h1>
+                <p>Wine Quality Prediction System</p>
+            </div>
+        </div>
+        <div class="user-section">
+            <div class="user-info">
+                <div class="user-name">Bindashree A</div>
+                <div class="user-role">Data Analyst</div>
+            </div>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h2>⚙️ Settings</h2>
+            <p>Customize your ENOLOGIX experience</p>
+        </div>
+
+        <!-- Settings Grid -->
+        <div class="settings-grid">
+            <!-- Appearance -->
+            <div class="settings-section">
+                <div class="section-title">⚡ APPEARANCE</div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-icon">🌓</div>
+                        <div class="setting-text">
+                            <h3>Dark Mode</h3>
+                            <p>Switch between dark and light theme</p>
+                        </div>
+                    </div>
+                    <div class="toggle-switch" id="themeToggle" onclick="toggleTheme()">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prediction Model -->
+            <div class="settings-section">
+                <div class="section-title">🤖 PREDICTION MODEL</div>
+                
+                <div class="model-grid">
+                    <div class="model-card selected" id="model-rf" onclick="selectModel('rf')">
+                        <div class="model-radio"></div>
+                        <div class="model-info">
+                            <h3>Random Forest</h3>
+                            <p>Ensemble learning with 200 decision trees</p>
+                            <div class="model-stats">
+                                <span class="stat-badge">93% Accuracy</span>
+                                <span class="stat-badge">91% F1</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="model-card" id="model-gb" onclick="selectModel('gb')">
+                        <div class="model-radio"></div>
+                        <div class="model-info">
+                            <h3>Gradient Boosting</h3>
+                            <p>Sequential learning with boosted trees</p>
+                            <div class="model-stats">
+                                <span class="stat-badge">92% Accuracy</span>
+                                <span class="stat-badge">90% F1</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notifications -->
+            <div class="settings-section">
+                <div class="section-title">🔔 NOTIFICATIONS</div>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-icon">📧</div>
+                        <div class="setting-text">
+                            <h3>Email Notifications</h3>
+                            <p>Get analysis reports via email</p>
+                        </div>
+                    </div>
+                    <div class="toggle-switch" id="emailToggle" onclick="toggleEmail()">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <div class="setting-icon">🔔</div>
+                        <div class="setting-text">
+                            <h3>Push Notifications</h3>
+                            <p>Receive updates and alerts</p>
+                        </div>
+                    </div>
+                    <div class="toggle-switch" id="pushToggle" onclick="togglePush()">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Data & Privacy -->
+            <div class="settings-section">
+                <div class="section-title">🔒 DATA & PRIVACY</div>
+                
+                <div class="setting-item" style="cursor: pointer;" onclick="window.location.href='{{ url_for('history') }}'">
+                    <div class="setting-info">
+                        <div class="setting-icon">📜</div>
+                        <div class="setting-text">
+                            <h3>Analysis History</h3>
+                            <p>View and manage past predictions</p>
+                        </div>
+                    </div>
+                    <span style="color: var(--text-secondary); font-size: 1.25rem;">→</span>
+                </div>
+
+                <div class="setting-item" style="cursor: pointer;" onclick="clearHistory()">
+                    <div class="setting-info">
+                        <div class="setting-icon">🗑️</div>
+                        <div class="setting-text">
+                            <h3>Clear History</h3>
+                            <p>Delete all saved analyses</p>
+                        </div>
+                    </div>
+                    <span style="color: var(--text-secondary); font-size: 1.25rem;">→</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="saveSettings()">
+                <span>💾</span>
+                <span>Save Settings</span>
+            </button>
+            <button class="btn btn-secondary" onclick="logout()">
+                <span>🚪</span>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        © 2024 ENOLOGIX | Powered by Machine Learning
+    </div>
+
+    <script>
+        // Load saved settings on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            // Load theme
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.body.classList.add('light-theme');
+                document.getElementById('themeToggle').classList.add('active');
+            } else {
+                document.getElementById('themeToggle').classList.remove('active');
+            }
+
+            // Load model preference
+            const savedModel = localStorage.getItem('model') || 'rf';
+            selectModel(savedModel);
+
+            // Load notification settings
+            const emailEnabled = localStorage.getItem('emailNotif') === 'true';
+            const pushEnabled = localStorage.getItem('pushNotif') === 'true';
+            
+            if (emailEnabled) {
+                document.getElementById('emailToggle').classList.add('active');
+            }
+            if (pushEnabled) {
+                document.getElementById('pushToggle').classList.add('active');
+            }
+        });
+
+        function toggleTheme() {
+            const toggle = document.getElementById('themeToggle');
+            const body = document.body;
+            
+            toggle.classList.toggle('active');
+            body.classList.toggle('light-theme');
+            
+            const theme = body.classList.contains('light-theme') ? 'light' : 'dark';
+            localStorage.setItem('theme', theme);
+            
+            // Show feedback
+            console.log('Theme changed to:', theme);
+        }
+
+        function selectModel(model) {
+            // Remove selected class from all
+            document.querySelectorAll('.model-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selected class to chosen model
+            document.getElementById('model-' + model).classList.add('selected');
+            localStorage.setItem('model', model);
+        }
+
+        function toggleEmail() {
+            const toggle = document.getElementById('emailToggle');
+            toggle.classList.toggle('active');
+            const enabled = toggle.classList.contains('active');
+            localStorage.setItem('emailNotif', enabled);
+        }
+
+        function togglePush() {
+            const toggle = document.getElementById('pushToggle');
+            toggle.classList.toggle('active');
+            const enabled = toggle.classList.contains('active');
+            localStorage.setItem('pushNotif', enabled);
+        }
+
+        function clearHistory() {
+            if (confirm('Are you sure you want to delete all your analysis history? This action cannot be undone.')) {
+                fetch('/clear_history', {
+                    method: 'POST'
+                }).then(response => {
+                    if (response.ok) {
+                        alert('History cleared successfully!');
+                    }
+                });
+            }
+        }
+
+        function saveSettings() {
+            // Show success message
+            alert('Settings saved successfully!');
+            
+            // Send settings to server
+            const settings = {
+                theme: localStorage.getItem('theme'),
+                model: localStorage.getItem('model'),
+                emailNotif: localStorage.getItem('emailNotif') === 'true',
+                pushNotif: localStorage.getItem('pushNotif') === 'true'
+            };
+
+            fetch('/save_settings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(settings)
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Settings synced to server');
+                }
+            });
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '{{ url_for("logout") }}';
+            }
+        }
+    </script>
+</body>
+</html>

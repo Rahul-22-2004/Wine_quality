@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History - ENOLOGIX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8B0A50 0%, #4A0E4E 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            color: #8B0A50;
+            font-size: 2em;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #8B0A50;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #6B0840;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 10, 80, 0.4);
+        }
+
+        .btn-danger {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6B0840;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4A0E4E;
+        }
+
+        .history-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .history-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .history-header h2 {
+            color: #2c3e50;
+            font-size: 1.8em;
+        }
+
+        .history-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: linear-gradient(135deg, #8B0A50 0%, #4A0E4E 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(139, 10, 80, 0.3);
+        }
+
+        .stat-card h3 {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #95a5a6;
+        }
+
+        .empty-state i {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .history-table {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px;
+        }
+
+        th {
+            background: #f8f9fa;
+            color: #2c3e50;
+            font-weight: 600;
+            padding: 15px;
+            text-align: left;
+            border-bottom: 2px solid #dee2e6;
+            position: sticky;
+            top: 0;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #ecf0f1;
+            color: #34495e;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        .wine-type-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .wine-type-red {
+            background: #ffe5e5;
+            color: #c0392b;
+        }
+
+        .wine-type-white {
+            background: #fff9e5;
+            color: #f39c12;
+        }
+
+        .quality-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .quality-excellent {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .quality-good {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .quality-average {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .quality-poor {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.85em;
+            border-radius: 6px;
+        }
+
+        .btn-view {
+            background: #8B0A50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-view:hover {
+            background: #6B0840;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, #8B0A50 0%, #4A0E4E 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .close {
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .detail-item {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #8B0A50;
+        }
+
+        .detail-item label {
+            display: block;
+            color: #7f8c8d;
+            font-size: 0.85em;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .detail-item .value {
+            color: #2c3e50;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #dc3545;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .history-stats {
+                flex-direction: column;
+            }
+
+            .header-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .history-table {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Alert Messages -->
+        <div id="alertSuccess" class="alert alert-success"></div>
+        <div id="alertError" class="alert alert-error"></div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1>📊 Prediction History</h1>
+            <div class="header-buttons">
+                <a href="/" class="btn btn-secondary">← Back to Dashboard</a>
+                <button onclick="confirmClearAll()" class="btn btn-danger">🗑️ Clear All History</button>
+            </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="history-stats">
+            <div class="stat-card">
+                <h3 id="totalPredictions">{{ history|length }}</h3>
+                <p>Total Predictions</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="avgQuality">-</h3>
+                <p>Average Quality</p>
+            </div>
+            <div class="stat-card">
+                <h3 id="mostCommon">-</h3>
+                <p>Most Common Type</p>
+            </div>
+        </div>
+
+        <!-- History Table -->
+        <div class="history-container">
+            <div class="history-header">
+                <h2>Your Predictions</h2>
+            </div>
+
+            {% if history|length == 0 %}
+            <div class="empty-state">
+                <i>📭</i>
+                <h3>No Predictions Yet</h3>
+                <p>Start making predictions to see your history here!</p>
+                <a href="/prediction" class="btn btn-primary" style="margin-top: 20px;">Make First Prediction</a>
+            </div>
+            {% else %}
+            <div class="history-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Date & Time</th>
+                            <th>Wine Type</th>
+                            <th>Quality</th>
+                            <th>Price (USD)</th>
+                            <th>Price (INR)</th>
+                            <th>Confidence</th>
+                            <th>Model</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in history %}
+                        <tr data-id="{{ record.id }}">
+                            <td>{{ loop.index }}</td>
+                            <td>{{ record.created_at }}</td>
+                            <td>
+                                <span class="wine-type-badge {% if 'Red' in record.wine_type %}wine-type-red{% else %}wine-type-white{% endif %}">
+                                    {{ record.wine_type }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="quality-badge 
+                                    {% if record.quality >= 8 %}quality-excellent
+                                    {% elif record.quality >= 7 %}quality-good
+                                    {% elif record.quality >= 5 %}quality-average
+                                    {% else %}quality-poor{% endif %}">
+                                    {{ record.quality }}/10
+                                </span>
+                            </td>
+                            <td><strong>{{ record.price_usd }}</strong></td>
+                            <td><strong>{{ record.price_inr }}</strong></td>
+                            <td>{{ record.confidence }}%</td>
+                            <td>{{ 'Random Forest' if record.model_used == 'rf' else 'Gradient Boosting' }}</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <button onclick="viewDetails({{ record.id }})" class="btn-small btn-view">👁️ View</button>
+                                    <button onclick="deleteRecord({{ record.id }})" class="btn-small btn-delete">🗑️</button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🍷 Wine Analysis Details</h2>
+                <button class="close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="detail-grid" id="detailGrid">
+                    <!-- Details will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Store history data
+        const historyData = {{ history|tojson|safe }};
+
+        // Calculate statistics
+        function calculateStats() {
+            if (historyData.length === 0) return;
+
+            // Average quality
+            const avgQuality = (historyData.reduce((sum, record) => sum + record.quality, 0) / historyData.length).toFixed(1);
+            document.getElementById('avgQuality').textContent = avgQuality;
+
+            // Most common wine type
+            const redCount = historyData.filter(r => r.wine_type.includes('Red')).length;
+            const whiteCount = historyData.length - redCount;
+            document.getElementById('mostCommon').textContent = redCount > whiteCount ? 'Red Wine' : 'White Wine';
+        }
+
+        // View details
+        function viewDetails(id) {
+            const record = historyData.find(r => r.id === id);
+            if (!record) return;
+
+            const detailGrid = document.getElementById('detailGrid');
+            detailGrid.innerHTML = `
+                <div class="detail-item">
+                    <label>Wine Type</label>
+                    <div class="value">${record.wine_type}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Quality Score</label>
+                    <div class="value">${record.quality}/10</div>
+                </div>
+                <div class="detail-item">
+                    <label>Price (USD)</label>
+                    <div class="value">${record.price_usd}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Price (INR)</label>
+                    <div class="value">${record.price_inr}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Confidence</label>
+                    <div class="value">${record.confidence}%</div>
+                </div>
+                <div class="detail-item">
+                    <label>Model Used</label>
+                    <div class="value">${record.model_used === 'rf' ? 'Random Forest' : 'Gradient Boosting'}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Fixed Acidity</label>
+                    <div class="value">${record.fixed_acidity}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Volatile Acidity</label>
+                    <div class="value">${record.volatile_acidity}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Citric Acid</label>
+                    <div class="value">${record.citric_acid}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Residual Sugar</label>
+                    <div class="value">${record.residual_sugar}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Chlorides</label>
+                    <div class="value">${record.chlorides}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Free Sulfur Dioxide</label>
+                    <div class="value">${record.free_sulfur_dioxide}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Total Sulfur Dioxide</label>
+                    <div class="value">${record.total_sulfur_dioxide}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Density</label>
+                    <div class="value">${record.density}</div>
+                </div>
+                <div class="detail-item">
+                    <label>pH Level</label>
+                    <div class="value">${record.pH}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Sulphates</label>
+                    <div class="value">${record.sulphates}</div>
+                </div>
+                <div class="detail-item">
+                    <label>Alcohol %</label>
+                    <div class="value">${record.alcohol}%</div>
+                </div>
+                <div class="detail-item">
+                    <label>Analysis Date</label>
+                    <div class="value">${record.created_at}</div>
+                </div>
+            `;
+
+            document.getElementById('detailModal').style.display = 'block';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('detailModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('detailModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Delete single record
+        function deleteRecord(id) {
+            if (!confirm('Are you sure you want to delete this prediction?')) return;
+
+            fetch(`/delete_history/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert('Prediction deleted successfully!', 'success');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    showAlert('Failed to delete prediction', 'error');
+                }
+            })
+            .catch(error => {
+                showAlert('Error: ' + error.message, 'error');
+            });
+        }
+
+        // Clear all history
+        function confirmClearAll() {
+            if (!confirm('⚠️ Are you sure you want to delete ALL predictions? This cannot be undone!')) return;
+
+            fetch('/clear_history', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showAlert('All predictions cleared successfully!', 'success');
+                    setTimeout(() => location.reload(), 1000);
+                } else {
+                    showAlert('Failed to clear history', 'error');
+                }
+            })
+            .catch(error => {
+                showAlert('Error: ' + error.message, 'error');
+            });
+        }
+
+        // Show alert message
+        function showAlert(message, type) {
+            const alertId = type === 'success' ? 'alertSuccess' : 'alertError';
+            const alertEl = document.getElementById(alertId);
+            alertEl.textContent = message;
+            alertEl.style.display = 'block';
+
+            setTimeout(() => {
+                alertEl.style.display = 'none';
+            }, 3000);
+        }
+
+        // Initialize statistics
+        calculateStats();
+    </script>
+</body>
+</html>

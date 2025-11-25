@@ -1,0 +1,9 @@
+Flask
+gunicorn
+qrcode
+pillow
+numpy
+pandas
+scikit-learn
+
+
