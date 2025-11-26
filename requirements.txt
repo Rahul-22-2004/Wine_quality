@@ -5,5 +5,7 @@ pillow
 numpy
 pandas
 scikit-learn
-
+flask-pymongo
+dnspython
+python-dotenv
 
