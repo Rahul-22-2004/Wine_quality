@@ -1,56 +1,74 @@
 <div align="center">
 
-  <h1>🍷 Enologix – AI-Powered Wine Quality & Price Predictor</h1>
+# 🍷 Enologix  
+### Wine Quality & Price Predictor
 
-  <p>
-    <strong>Live Demo:</strong> 
-    <a href="https://enologix.onrender.com" target="_blank">https://enologix.onrender.com</a>
-  </p>
+<p>
+  🔗 <strong>Live Demo:</strong><br>
+  <a href="https://enologix.onrender.com" target="_blank">
+    https://enologix.onrender.com
+  </a>
+</p>
 
-  <p>
-    <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python"/>
-    <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask"/>
-    <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB"/>
-    <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white" alt="scikit-learn"/>
-    <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white" alt="Render"/>
-  </p>
+<br>
 
-  <p>
-    A full-stack web application that uses <strong>machine learning</strong> to predict wine quality (0–10) and estimate real-world price (USD & INR) based on physicochemical properties — with user accounts, history tracking, admin controls, and beautiful responsive UI.
-  </p>
+<p>
+  <img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white"/>
+  <img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white"/>
+  <img src="https://img.shields.io/badge/scikit--learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=render&logoColor=white"/>
+</p>
+
+<br>
+
+<p>
+  A modern full-stack web application that leverages <strong>Machine Learning</strong>  
+  to predict <strong>wine quality (0–10)</strong> and estimate  
+  <strong>real-world price (USD & INR)</strong> using physicochemical properties.
+</p>
+
+<p>
+  Built with authentication, history tracking, admin controls,  
+  and a clean, fully responsive user interface.
+</p>
 
 </div>
 
-## ✨ Features
+---
 
-- Secure user registration & login (hashed passwords)
-- Instant wine quality & price prediction using **Random Forest** (with Gradient Boosting fallback)
-- Engineered features + StandardScaler for high accuracy
-- Automatic red/white wine classification with confidence %
-- Full prediction history (view / delete / clear)
-- Admin dashboard (user stats, make/remove admin)
-- User settings: dark/light theme, preferred model, notifications
-- QR code generator for quick mobile access
-- Fully responsive & mobile-friendly design
-- Cloud database with **MongoDB Atlas** (persistent & secure)
-- Deployed on **Render.com** with free HTTPS
+# ✨ Features
 
-## 🛠️ Tech Stack
-
-| Category           | Technology                              |
-|--------------------|-----------------------------------------|
-| Backend            | Flask (Python)                          |
-| Database           | MongoDB Atlas (cloud)                   |
-| Machine Learning   | scikit-learn, pandas, numpy             |
-| Authentication     | Werkzeug, Flask-Session                 |
-| Frontend           | HTML5, CSS3, Jinja2                     |
-| Deployment         | Render.com (free tier)                  |
-| Environment        | python-dotenv, PyMongo, Gunicorn        |
-| Extras             | qrcode, Pillow                          |
+- 🔐 Secure user registration & login (hashed passwords)  
+- ⚡ Instant wine quality & price prediction using **Random Forest** (with Gradient Boosting fallback)  
+- 🧠 Engineered features + StandardScaler for high accuracy  
+- 🍷 Automatic red/white wine classification with confidence %  
+- 📜 Full prediction history (view / delete / clear)  
+- 👑 Admin dashboard (user stats, make/remove admin)  
+- ⚙️ User settings: dark/light theme, preferred model, notifications  
+- 📱 QR code generator for quick mobile access  
+- 📲 Fully responsive & mobile-friendly design  
+- ☁️ Cloud database with **MongoDB Atlas** (persistent & secure)  
+- 🌍 Deployed on **Render.com** with free HTTPS  
 
 ---
 
-## 📂 Project Structure
+# 🛠️ Tech Stack
+
+| Category           | Technology                              |
+|--------------------|------------------------------------------|
+| **Backend**        | Flask (Python)                          |
+| **Database**       | MongoDB Atlas (Cloud)                   |
+| **Machine Learning** | scikit-learn, pandas, numpy          |
+| **Authentication** | Werkzeug, Flask-Session                 |
+| **Frontend**       | HTML5, CSS3, Jinja2                     |
+| **Deployment**     | Render.com (Free Tier)                  |
+| **Environment**    | python-dotenv, PyMongo, Gunicorn        |
+| **Extras**         | qrcode, Pillow                          |
+
+---
+
+# 📂 Project Structure
 
 ```
 Wine_quality/
@@ -189,4 +207,3 @@ Cold starts reduced using UptimeRobot (ping every 5 minutes)
 - 🐳 Docker support  
 - ⚛️ Optional React / Vue frontend upgrade  
 - 📈 Model performance comparison dashboard  
-
