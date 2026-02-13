@@ -48,3 +48,145 @@
 | Environment        | python-dotenv, PyMongo, Gunicorn        |
 | Extras             | qrcode, Pillow                          |
 
+---
+
+## 📂 Project Structure
+
+```
+Wine_quality/
+│
+├── Main.py                     # 🚀 Core Flask application
+├── requirements.txt            # 📦 Python dependencies
+├── .env                        # 🔐 Environment variables (DO NOT COMMIT)
+├── .gitignore
+│
+├── templates/                  # 🎨 Jinja2 HTML templates
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── prediction.html
+│   ├── result.html
+│   ├── history.html
+│   ├── settings.html
+│   ├── admin_dashboard.html
+│   ├── public_stats.html
+│   ├── qr_code.html
+│   └── ...
+│
+├── static/                     # 🎨 CSS, JS, images
+│
+└── wine_quality_*.pkl          # 🤖 Trained ML models & scaler
+```
+
+---
+
+# 🚀 Local Development Setup
+
+Follow these steps to run the project locally:
+
+---
+
+## 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/Rahul-22-2004/Wine_quality.git
+cd Wine_quality
+```
+
+---
+
+## 2️⃣ Create & Activate Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Windows
+```bash
+venv\Scripts\activate
+```
+
+### macOS / Linux
+```bash
+source venv/bin/activate
+```
+
+---
+
+## 3️⃣ Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4️⃣ Create `.env` File (Important 🔐)
+
+Create a `.env` file in the root directory and add:
+
+```env
+MONGO_URI=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/enologix?retryWrites=true&w=majority
+SECRET_KEY=your-very-long-random-secret-key-here
+```
+
+⚠️ Never commit `.env` to GitHub.
+
+---
+
+## 5️⃣ Run the Application
+
+```bash
+python Main.py
+```
+
+Open your browser and visit:
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+# 🌐 Deployment (Render.com)
+
+🔗 **Live Application:**  
+https://enologix.onrender.com
+
+### ⚙️ Deployment Configuration
+
+**Build Command**
+```bash
+pip install -r requirements.txt
+```
+
+**Start Command**
+```bash
+gunicorn Main:app
+```
+
+**Environment Variables Required**
+```
+MONGO_URI
+SECRET_KEY
+```
+
+**Hosting Plan**
+```
+Render Free Tier
+Cold starts reduced using UptimeRobot (ping every 5 minutes)
+```
+
+---
+
+# 🚀 Future Enhancements
+
+- 👤 User profile pictures & avatars  
+- 📊 Interactive charts (quality trends, analytics dashboard)  
+- 📁 Export prediction history (CSV / PDF)  
+- 💰 Real-time wine market price integration  
+- 🧪 Unit testing with pytest  
+- 🐳 Docker support  
+- ⚛️ Optional React / Vue frontend upgrade  
+- 📈 Model performance comparison dashboard  
+
