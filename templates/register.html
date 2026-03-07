@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ENOLOGIX - Register</title>
     <style>
         * {
@@ -38,7 +38,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 1rem;
+            padding: clamp(1rem, 5vw, 2rem);
             transition: all 0.3s ease;
         }
 
@@ -54,155 +54,89 @@
 
         .container {
             background: var(--bg-card);
-            backdrop-filter: blur(20px);
-            width: 100%;
-            max-width: 450px;
+            backdrop-filter: blur(10px);
             border-radius: 1.5rem;
-            padding: 2rem 1.5rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
             border: 1px solid var(--border-color);
+            padding: clamp(1.5rem, 6vw, 2.5rem) clamp(1.5rem, 5vw, 2rem);
+            width: 100%;
+            max-width: 460px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4);
             position: relative;
             z-index: 1;
-            max-height: 90vh;
-            overflow-y: auto;
         }
 
-        .container::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .container::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-
-        .container::-webkit-scrollbar-thumb {
-            background: rgba(139, 92, 246, 0.5);
-            border-radius: 10px;
-        }
-
-        .logo-section {
+        h1 {
             text-align: center;
-            margin-bottom: 1.5rem;
+            font-size: clamp(1.8rem, 7vw, 2.4rem);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .logo-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 100%);
-            border-radius: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin: 0 auto 1rem;
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .logo-title {
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 0.375rem;
-        }
-
-        .logo-subtitle {
+        .subtitle {
+            text-align: center;
             color: var(--text-secondary);
-            font-size: 0.6875rem;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-        }
-
-        .form-title {
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 0.375rem;
-            text-align: center;
-        }
-
-        .form-subtitle {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            font-size: clamp(0.95rem, 4vw, 1.1rem);
         }
 
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: clamp(1rem, 4vw, 1.5rem);
         }
 
         .form-label {
-            color: var(--text-secondary);
-            font-size: 0.8125rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
             display: block;
-            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-size: clamp(0.9rem, 3.5vw, 1rem);
         }
 
         .form-input {
             width: 100%;
-            padding: 0.875rem 1rem;
-            background: rgba(255,255,255,0.05);
+            padding: clamp(0.8rem, 4vw, 0.9rem) 1rem;
             border: 1px solid var(--border-color);
             border-radius: 0.75rem;
+            background: rgba(255,255,255,0.05);
             color: var(--text-primary);
-            font-size: 0.9375rem;
+            font-size: clamp(0.95rem, 4vw, 1rem);
             transition: all 0.3s ease;
-            outline: none;
-            -webkit-appearance: none;
         }
 
         .form-input:focus {
-            background: rgba(255,255,255,0.08);
-            border-color: var(--accent-secondary);
-            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.2);
         }
 
-        .form-input::placeholder {
+        .terms {
+            text-align: center;
+            font-size: clamp(0.85rem, 3.5vw, 0.9rem);
             color: var(--text-secondary);
-            opacity: 0.5;
+            margin: 1.5rem 0;
+        }
+
+        .terms a {
+            color: var(--accent-primary);
+            text-decoration: none;
         }
 
         .btn-primary {
             width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--accent-secondary) 0%, var(--accent-primary) 100%);
+            padding: clamp(0.9rem, 4vw, 1rem);
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
             border: none;
             border-radius: 0.75rem;
-            color: white;
-            font-size: 1rem;
-            font-weight: 700;
+            font-size: clamp(1rem, 4vw, 1.1rem);
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 0.5px;
-            box-shadow: 0 8px 24px rgba(139, 92, 246, 0.4);
-            margin-top: 0.5rem;
+            transition: transform 0.2s ease;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(139, 92, 246, 0.5);
-        }
-
-        .btn-primary:active {
-            transform: translateY(0);
         }
 
         .divider {
@@ -218,154 +152,58 @@
         }
 
         .divider-text {
-            color: var(--text-secondary);
-            font-size: 0.8125rem;
             padding: 0 1rem;
-            font-weight: 600;
+            color: var(--text-secondary);
+            font-size: clamp(0.85rem, 3.5vw, 0.9rem);
         }
 
         .login-link {
             text-align: center;
-            margin-top: 1.25rem;
+            margin-top: 1.5rem;
             color: var(--text-secondary);
-            font-size: 0.875rem;
+            font-size: clamp(0.9rem, 4vw, 1rem);
         }
 
         .login-link a {
-            color: var(--accent-secondary);
-            font-weight: 700;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .login-link a:hover {
             color: var(--accent-primary);
-        }
-
-        .alert {
-            padding: 0.875rem 1rem;
-            border-radius: 0.75rem;
-            margin-bottom: 1.25rem;
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        .alert-error {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #fca5a5;
-        }
-
-        .alert-success {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            color: #86efac;
-        }
-
-        .terms {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            text-align: center;
-            margin-top: 1.25rem;
-            line-height: 1.5;
-        }
-
-        .terms a {
-            color: var(--accent-secondary);
             text-decoration: none;
+            font-weight: 500;
         }
 
-        /* Mobile optimizations */
+        /* ──────────────────────────────────────────────
+           RESPONSIVE ADJUSTMENTS
+        ────────────────────────────────────────────── */
+
         @media (max-width: 480px) {
-            body {
-                padding: 0.5rem;
-                align-items: flex-start;
-                padding-top: 1rem;
-            }
+            body { padding: 1rem; }
 
             .container {
-                padding: 1.5rem 1.25rem;
+                padding: clamp(1.5rem, 6vw, 2rem) clamp(1rem, 5vw, 1.5rem);
+                margin: 0.5rem;
                 border-radius: 1.25rem;
-                max-height: calc(100vh - 2rem);
             }
 
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
+            h1 { font-size: clamp(1.6rem, 8vw, 2rem); }
 
-            .logo-icon {
-                width: 50px;
-                height: 50px;
-                font-size: 1.75rem;
-                margin-bottom: 0.75rem;
-            }
+            .form-input { padding: 0.8rem 0.9rem; font-size: 0.95rem; }
 
-            .logo-title {
-                font-size: 1.25rem;
-            }
+            .btn-primary { padding: 0.85rem; font-size: 1rem; }
 
-            .form-title {
-                font-size: 1.25rem;
-            }
-
-            .form-input {
-                padding: 0.75rem 0.875rem;
-                font-size: 16px; /* Prevents zoom on iOS */
-            }
-
-            .form-group {
-                margin-bottom: 0.875rem;
-            }
+            .divider-text { padding: 0 0.8rem; font-size: 0.85rem; }
         }
 
-        /* Landscape mode */
-        @media (max-height: 600px) and (orientation: landscape) {
-            body {
-                padding: 0.5rem;
-            }
-
-            .container {
-                padding: 1rem;
-                max-width: 90%;
-                max-height: 95vh;
-            }
-
-            .logo-section {
-                margin-bottom: 0.75rem;
-            }
-
-            .logo-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1.25rem;
-                margin-bottom: 0.5rem;
-            }
-
-            .form-group {
-                margin-bottom: 0.5rem;
-            }
-
-            .form-row {
-                margin-bottom: 0.5rem;
-            }
+        @media (max-width: 360px) {
+            .container { padding: 1.2rem 1rem; }
+            .btn-primary { padding: 0.8rem; font-size: 0.95rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Logo Section -->
-        <div class="logo-section">
-            <div class="logo-icon">🍷</div>
-            <h1 class="logo-title">ENOLOGIX</h1>
-            <p class="logo-subtitle">Wine Quality Intelligence</p>
-        </div>
+        <h1>ENOLOGIX</h1>
+        <p class="subtitle">Create your account</p>
 
-        <!-- Form Section -->
-        <h2 class="form-title">Create Account</h2>
-        <p class="form-subtitle">Join us to start analyzing wine quality</p>
-
-        <!-- Alert Messages -->
+        <!-- Alert Messages (if you have flashed messages) -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -376,27 +214,24 @@
             {% endif %}
         {% endwith %}
 
-        <!-- Registration Form -->
         <form method="POST" action="{{ url_for('register') }}">
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label">First Name</label>
-                    <input type="text" name="firstname" class="form-input" placeholder="John" required autocomplete="given-name">
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Last Name</label>
-                    <input type="text" name="lastname" class="form-input" placeholder="Doe" required autocomplete="family-name">
-                </div>
-            </div>
-
             <div class="form-group">
                 <label class="form-label">Username</label>
                 <input type="text" name="username" class="form-input" placeholder="Choose a username" required autocomplete="username">
             </div>
 
             <div class="form-group">
-                <label class="form-label">Email Address</label>
+                <label class="form-label">First Name</label>
+                <input type="text" name="firstname" class="form-input" placeholder="Enter your first name" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" name="lastname" class="form-input" placeholder="Enter your last name" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Email</label>
                 <input type="email" name="email" class="form-input" placeholder="your.email@example.com" required autocomplete="email">
             </div>
 

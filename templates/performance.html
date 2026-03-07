@@ -326,8 +326,8 @@
         </div>
         <div class="user-section">
             <div class="user-info">
-                <div class="user-name">Bindashree A</div>
-                <div class="user-role">Data Analyst</div>
+                <div class="user-name">👤 {{ session.get('username', 'User') }}</div>
+                <!-- <div class="user-role">Data Analyst</div> -->
             </div>
             <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
         </div>
@@ -433,7 +433,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        © 2024 ENOLOGIX | Powered by Machine Learning
+        © 2025 ENOLOGIX | Powered by Machine Learning
     </div>
 
     <script>

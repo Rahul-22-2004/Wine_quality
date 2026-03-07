@@ -404,23 +404,20 @@
 </head>
 <body>
     <!-- Header -->
-    <div class="header">
+    <header class="header">
         <div class="logo-section">
             <div class="logo-icon">🍷</div>
             <div class="logo-text">
                 <h1>ENOLOGIX</h1>
-                <p>Wine Quality Prediction System</p>
             </div>
         </div>
-        <div class="user-section">
-            <div class="user-info">
-                <div class="user-name">Bindashree A</div>
-                <div class="user-role">Data Analyst</div>
-            </div>
-            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
-        </div>
-    </div>
 
+        <div class="user-section">
+            <span class="username">{{ session.username }}</span>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </header>
+    
     <!-- Main Content -->
     <div class="container">
         <!-- Page Header -->
@@ -554,7 +551,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        © 2024 ENOLOGIX | Powered by Machine Learning
+        © 2025 ENOLOGIX | Powered by Machine Learning
     </div>
 
     <script>
