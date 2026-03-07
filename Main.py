@@ -456,6 +456,6 @@ def test_db():
 if __name__ == '__main__':
     print("\n" + "="*70)
     print(" ENOLOGIX - Running on MongoDB Atlas")
-    print(" All SQLite code removed | Fully cloud-ready")
+    print(" Fully cloud-ready")
     print("="*70 + "\n")
     app.run(host='0.0.0.0', port=5000, debug=True)
